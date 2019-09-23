@@ -3,8 +3,6 @@ package com.example.shopper;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -30,6 +28,9 @@ public class CreateList extends AppCompatActivity {
 
     // declare Calendar
     Calendar calendar;
+
+    // declare database handler
+    DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,8 @@ public class CreateList extends AppCompatActivity {
             }
         });
 
+        // initialize database handler
+        dbHandler = new DBHandler(this, null);
     }
 
     public void updateDueDate() {
@@ -128,6 +131,8 @@ public class CreateList extends AppCompatActivity {
             // if any of the Strings are empty, display Please enter ... Toast
             Toast.makeText(this, "Please enter a name, store, and date!", Toast.LENGTH_LONG).show();
         } else {
+            // add shopping list to database
+            dbHandler.addShoppingList(name, store, date);
             // if none of the Strings are empty, display Shopping List Added Toast
             Toast.makeText(this, "Shopping List Added!", Toast.LENGTH_LONG).show();
         }
